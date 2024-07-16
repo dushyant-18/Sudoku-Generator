@@ -30,3 +30,35 @@ bool isValid(const vector<vector<int>> &grid, int row, int col, int num)
 
     return true;
 }
+
+// Function to generate a completely filled valid Sudoku grid
+bool fillGrid(vector<vector<int>> &grid)
+{
+    for (int row = 0; row < N; row++)
+    {
+        for (int col = 0; col < N; col++)
+        {
+            if (grid[row][col] == 0)
+            {
+                vector<int> numbers(N);
+                iota(numbers.begin(), numbers.end(), 1);
+                random_device rd;
+                mt19937 g(rd());
+                shuffle(numbers.begin(), numbers.end(), g);
+
+                for (int num : numbers)
+                {
+                    if (isValid(grid, row, col, num))
+                    {
+                        grid[row][col] = num;
+                        if (fillGrid(grid))
+                            return true;
+                        grid[row][col] = 0;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}
