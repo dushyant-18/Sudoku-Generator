@@ -7,6 +7,8 @@ This project is a Sudoku puzzle generator written in C++. It creates a valid, so
 - Generates a complete, valid Sudoku grid.
 - Shuffles rows and columns within each 3x3 block to maintain validity while introducing variability.
 - Removes random numbers from the grid to create a playable Sudoku puzzle.
+- Ensures the generated Sudoku puzzle has a unique solution (for the unique Sudoku generator).
+- Difficulty level can be adjusted by changing the number of clues left in the grid.
 - Prints the generated Sudoku puzzle to the console.
 
 ## Getting Started
