@@ -62,3 +62,50 @@ bool fillGrid(vector<vector<int>> &grid)
     }
     return true;
 }
+
+// Backtracking solver to count the number of solutions
+bool solveSudoku(vector<vector<int>> &grid, int &count)
+{
+    for (int row = 0; row < N; row++)
+    {
+        for (int col = 0; col < N; col++)
+        {
+            if (grid[row][col] == 0)
+            {
+                for (int num = 1; num <= 9; num++)
+                {
+                    if (isValid(grid, row, col, num))
+                    {
+                        grid[row][col] = num;
+                        if (solveSudoku(grid, count))
+                            return true;
+                        grid[row][col] = 0;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    count++;
+    return count > 1;
+}
+
+// Function to check if the Sudoku puzzle has a unique solution
+bool hasUniqueSolution(vector<vector<int>> grid)
+{
+    int count = 0;
+    solveSudoku(grid, count);
+    return count == 1;
+}
+
+// Count the number of clues in the grid
+int countClues(const vector<vector<int>> &grid)
+{
+    int count = 0;
+    for (const auto &row : grid)
+    {
+        count += count_if(row.begin(), row.end(), [](int val)
+                          { return val != 0; });
+    }
+    return count;
+}
