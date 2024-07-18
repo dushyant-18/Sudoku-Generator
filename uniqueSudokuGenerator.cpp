@@ -109,3 +109,38 @@ int countClues(const vector<vector<int>> &grid)
     }
     return count;
 }
+
+// Function to remove numbers while ensuring unique solution
+void removeNumbers(vector<vector<int>> &grid, int minClues)
+{
+    random_device rd;
+    mt19937 g(rd());
+
+    vector<pair<int, int>> cells;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            cells.emplace_back(i, j);
+        }
+    }
+    shuffle(cells.begin(), cells.end(), g);
+
+    for (auto &cell : cells)
+    {
+        int row = cell.first;
+        int col = cell.second;
+        int backup = grid[row][col];
+        grid[row][col] = 0;
+
+        if (!hasUniqueSolution(grid))
+        {
+            grid[row][col] = backup;
+        }
+        else if (countClues(grid) < minClues)
+        {
+            grid[row][col] = backup;
+            break;
+        }
+    }
+}
