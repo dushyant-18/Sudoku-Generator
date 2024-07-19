@@ -144,3 +144,52 @@ void removeNumbers(vector<vector<int>> &grid, int minClues)
         }
     }
 }
+
+// Function to print the Sudoku grid
+void printGrid(const vector<vector<int>> &grid)
+{
+    cout << "Generated Sudoku Puzzle:" << endl;
+    cout << " -----------------------" << endl;
+    for (int row = 0; row < N; row++)
+    {
+        if (row > 0 && row % 3 == 0)
+        {
+            cout << "|-------+-------+-------|" << endl;
+        }
+        for (int col = 0; col < N; col++)
+        {
+            if (col == 0)
+                cout << "| ";
+            if (col > 0 && col % 3 == 0)
+            {
+                cout << "| ";
+            }
+            if (grid[row][col] == 0)
+            {
+                cout << "_ ";
+            }
+            else
+            {
+                cout << grid[row][col] << " ";
+            }
+        }
+        cout << "|" << endl;
+    }
+    cout << " -----------------------" << endl;
+}
+
+int main()
+{
+    vector<vector<int>> grid(N, vector<int>(N, 0));
+
+    // Generate a complete Sudoku grid
+    fillGrid(grid);
+
+    // Remove numbers while ensuring unique solution
+    removeNumbers(grid, 17);
+
+    // Print the generated Sudoku puzzle
+    printGrid(grid);
+
+    return 0;
+}
